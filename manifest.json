@@ -1,0 +1,36 @@
+{
+
+  "manifest_version": 2,
+  "name": "Steam Currency Converter",
+  "version": "1.0",
+
+  "description": "Переводит цены в Steam из Тенге в Рубли",
+  "icons": {
+    "48": "icons/icon48.png",
+    "96": "icons/icon96.png"
+  },  
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "steamcurrencyconverter1@friday13",
+      "strict_min_version": "111.0"
+    }
+  },
+
+  "permissions": [
+    "webRequest",
+    "storage"
+  ],
+
+  "background": {
+    "scripts": ["exchangeRateStorage.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://store.steampowered.com/*"],
+      "js": ["currencyConverter.js"]
+    }
+  ]
+
+}
