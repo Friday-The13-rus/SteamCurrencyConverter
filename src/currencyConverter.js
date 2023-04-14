@@ -38,4 +38,9 @@ browser.storage.local.get()
             convertElements(".steamdb_prices_top > b", item.rate)
             convertElements(".small_cap > h5", item.rate)
         }, 1000)
+
+        setTimeout(() => {
+            convertElements('div[class^="salepreviewwidgets_StoreOriginalPrice_"]', item.rate)
+            convertElements('div[class^="salepreviewwidgets_StoreSalePriceBox_"]', item.rate)
+        }, 5000)
     })
