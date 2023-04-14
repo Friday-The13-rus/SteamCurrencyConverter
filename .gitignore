@@ -12,3 +12,4 @@
 *.vsix
 
 web-ext-artifacts/*
+src/.web-extension-id
