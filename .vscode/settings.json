@@ -1,5 +1,6 @@
 {
     "secrets.enabledFolders": [
-        "default"
+        "default",
+        "mozilla"
     ]
 }

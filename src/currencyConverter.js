@@ -35,6 +35,7 @@ function convertStatic(rate) {
     convertElements("#header_wallet_balance", rate)
     convertElements(".steamdb_prices_top > b", rate)
     convertElements(".small_cap > h5", rate)
+    convertElements(".bundle_savings", rate)
 
     convertElements('div[class^="salepreviewwidgets_StoreOriginalPrice_"]', rate)
     convertElements('div[class^="salepreviewwidgets_StoreSalePriceBox_"]', rate)
