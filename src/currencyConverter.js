@@ -130,6 +130,20 @@ function watchSteamDbBanner(rate) {
     })
 }
 
+function watchWishlist(rate) {
+    watchWithObserver([
+        {
+            selectors: "#wishlist_ctn",
+            options: {
+                childList: true
+            }
+        }
+    ], (node) => {
+        convertElements(".discount_original_price", rate, node)
+        convertElements(".discount_final_price", rate, node)
+    })
+}
+
 browser.storage.local.get()
     .then((item) => {
         console.log(`Currency Converter Loaded. Current Rate ${item.rate}`)
@@ -138,4 +152,5 @@ browser.storage.local.get()
         watchHomePage(item.rate)
         watchSteamDbBanner(item.rate)
         watchSalesPage(item.rate)
+        watchWishlist(item.rate)
     })
