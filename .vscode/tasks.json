@@ -11,11 +11,11 @@
         {
             "label": "Run",
             "type": "shell",
-            "command": "web-ext run",
-            "group":{
+            "command": "web-ext run --devtools",
+            "group": {
                 "kind": "build",
                 "isDefault": true
-            },
+            }
         },
         {
             "label": "Build",
@@ -31,7 +31,8 @@
         {
             "label": "Sign",
             "type": "shell",
-            "command": "web-ext sign --channel=unlisted"
+            "command": "web-ext sign --channel=unlisted",
+            "problemMatcher": []
         }
     ]
 }
