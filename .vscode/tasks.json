@@ -20,7 +20,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "web-ext build --overwrite-dest",
+            "command": "npm run build",
             "group": "build"
         },
         {

@@ -3,7 +3,7 @@ const russianFormat = new Intl.NumberFormat("ru-RU", {
     currency: "RUB"
 })
 
-function convert(text, rate) {
+function convert(text: string, rate: number) {
     if (!text.includes("₸")) {
         return null
     }
@@ -16,9 +16,13 @@ function convert(text, rate) {
     return null
 }
 
-function convertElements(selector, rate, node) {
+function convertElements(selector: string, rate: number, node?: Element) {
     let elements = (node ?? document).querySelectorAll(selector)
     for (let element of elements) {
+        if (!(element instanceof HTMLElement)) {
+            continue;
+        }
+        
         let converted = convert(element.innerText, rate)
         if (converted) {
             element.innerText = converted
@@ -26,7 +30,7 @@ function convertElements(selector, rate, node) {
     }
 }
 
-function convertStatic(rate) {
+function convertStatic(rate: number) {
     convertElements(".discount_original_price", rate)
     convertElements(".discount_final_price", rate)
     convertElements(".price", rate)
@@ -41,7 +45,7 @@ function convertStatic(rate) {
     convertElements('div[class^="salepreviewwidgets_StoreSalePriceBox_"]', rate)
 }
 
-function watchWithObserver(selectors, callback) {
+function watchWithObserver(selectors: Selector[], callback: (node: HTMLElement) => void) {
     let mutationObserver = new MutationObserver((mutations) => {
         for (let mutation of mutations) {
             for (let node of mutation.addedNodes) {
@@ -62,7 +66,7 @@ function watchWithObserver(selectors, callback) {
     }
 }
 
-function watchHomePage(rate) {
+function watchHomePage(rate: number) {
     watchWithObserver([
         {
             selectors: ".home_ctn",
@@ -83,12 +87,12 @@ function watchHomePage(rate) {
     })
 }
 
-function convertSalesElements(node, rate) {
+function convertSalesElements(node: HTMLElement, rate: number) {
     convertElements('div[class^="salepreviewwidgets_StoreOriginalPrice_"]', rate, node)
     convertElements('div[class^="salepreviewwidgets_StoreSalePriceBox_"]', rate, node)
 }
 
-function watchSalesPage(rate) {
+function watchSalesPage(rate: number) {
     watchWithObserver([
         {
             selectors: ".SaleOuterContainer",
@@ -115,7 +119,7 @@ function watchSalesPage(rate) {
     })
 }
 
-function watchSteamDbBanner(rate) {
+function watchSteamDbBanner(rate: number) {
     watchWithObserver([
         {
             selectors: "#game_area_purchase",
@@ -130,7 +134,7 @@ function watchSteamDbBanner(rate) {
     })
 }
 
-function watchWishlist(rate) {
+function watchWishlist(rate: number) {
     watchWithObserver([
         {
             selectors: "#wishlist_ctn",
@@ -145,7 +149,8 @@ function watchWishlist(rate) {
 }
 
 browser.storage.local.get()
-    .then((item) => {
+    .then((value) => {
+        var item = value as StorageData;
         console.log(`Currency Converter Loaded. Current Rate ${item.rate}`)
         
         convertStatic(item.rate)

@@ -13,3 +13,5 @@
 
 web-ext-artifacts/*
 src/.web-extension-id
+node_modules
+dist

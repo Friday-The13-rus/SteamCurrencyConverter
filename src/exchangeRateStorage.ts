@@ -1,7 +1,8 @@
 browser.storage.local.get()
-    .then((item) => {
+    .then((value) => {
+        var item = value as StorageData;
         var now = new Date()
-        if (item && (now - item.date < 1000 * 60 * 60 * 24)) {
+        if (item && (now.getTime() - item.date.getTime() < 1000 * 60 * 60 * 24)) {
             console.log(`Up to date. Current rate ${item.rate}`)
             return
         }
@@ -14,9 +15,6 @@ browser.storage.local.get()
                 var rate = responce.rates.RUB
                 console.log(`Updated to ${rate}`)
 
-                browser.storage.local.set({
-                    rate: rate,
-                    date: now
-                })
+                browser.storage.local.set(new StorageData(now, rate))
             })
     })
