@@ -19,6 +19,10 @@ function convert(text, rate) {
 function convertElements(selector, rate, node) {
     let elements = (node ?? document).querySelectorAll(selector)
     for (let element of elements) {
+        if (!(element instanceof HTMLElement)) {
+            continue;
+        }
+
         let converted = convert(element.innerText, rate)
         if (converted) {
             element.innerText = converted
@@ -144,6 +148,19 @@ function watchWishlist(rate) {
     })
 }
 
+function watchSearch(rate) {
+    watchWithObserver([
+        {
+            selectors: "#search_suggestion_contents",
+            options: {
+                childList: true
+            }
+        }
+    ], (node) => {
+        convertElements(".match_subtitle", rate, node)
+    })
+}
+
 browser.storage.local.get()
     .then((item) => {
         console.log(`Currency Converter Loaded. Current Rate ${item.rate}`)
@@ -153,4 +170,5 @@ browser.storage.local.get()
         watchSteamDbBanner(item.rate)
         watchSalesPage(item.rate)
         watchWishlist(item.rate)
+        watchSearch(item.rate)
     })
