@@ -80,6 +80,30 @@ function watchHomePage(rate) {
             options: {
                 childList: true
             }
+        },
+        {
+            selectors: "#sale_tag_categories",
+            options: {
+                childList: true
+            }
+        },
+        {
+            selectors: "#tier2_target",
+            options: {
+                childList: true
+            }
+        },
+        {
+            selectors: "#dlc_tier",
+            options: {
+                childList: true
+            }
+        },
+        {
+            selectors: ".home_discount_games_ctn",
+            options: {
+                childList: true
+            }
         }
     ], (node) => {
         convertElements(".discount_original_price", rate, node)
